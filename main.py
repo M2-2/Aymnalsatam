@@ -60,6 +60,9 @@ def start_restream(stream_url):
     
     ffmpeg_cmd = [
         'ffmpeg',
+        '-reconnect', '1',
+        '-reconnect_streamed', '1',
+        '-reconnect_delay_max', '5',
         '-re',
         '-i', stream_url,
         '-i', IMG1_LOCAL,
@@ -109,17 +112,18 @@ def main():
             if playback_url:
                 print("[+] البث يعمل الآن! بدء إعادة التوجيه المباشر إلى YouTube...")
                 start_restream(playback_url)
-                print("[!] توقف البث أو انقطع الاتصال. إعادة المحاولة والمراقبة...")
+                print("[!] توقف البث أو انقطع الاتصال. الانتظار 10 ثوانٍ قبل التثبت مجدداً...")
+                time.sleep(10)
             else:
-                print("[-] القناة أوفلاين. إعادة الفحص خلال 10 ثوانٍ...")
+                print("[-] القناة أوفلاين. إعادة الفحص خلال 15 ثانية...")
+                time.sleep(15)
                 
         except KeyboardInterrupt:
             print("[!] تم إيقاف السكريبت يدوياً.")
             break
         except Exception as e:
             print(f"[!] حدث خطأ في النظام: {e}. إعادة التشغيل التلقائي خلال 10 ثوانٍ...")
-        
-        time.sleep(10)
+            time.sleep(10)
 
 if __name__ == "__main__":
     main()
