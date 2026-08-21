@@ -9,7 +9,7 @@ import socket
 socket.setdefaulttimeout(15)
 
 # البيانات الجديدة
-KICK_USERNAME = "aymnalsatam"
+KICK_USERNAME = "AYMNALSATAM"
 RESTREAM_KEY = "re_11725544_eventf8523825b0ec48f8b9a43d948b5b5f97"
 RESTREAM_RTMP = f"rtmp://live.restream.io/live/{RESTREAM_KEY}"
 
