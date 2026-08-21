@@ -9,7 +9,7 @@ import socket
 socket.setdefaulttimeout(15)
 
 # بيانات القناة وخدمة YouTube Live
-KICK_USERNAME = "aymnalsatam"
+KICK_USERNAME = ""
 YOUTUBE_STREAM_KEY = "p0ky-h9m9-cywd-wy8v-2yra"
 DESTINATION_RTMP = f"rtmp://a.rtmp.youtube.com/live2/{YOUTUBE_STREAM_KEY}"
 
@@ -52,8 +52,8 @@ def get_kick_livestream_url(username):
 def start_restream(stream_url):
     filter_complex = (
         "[0:v]scale=1920:1080:flags=lanczos[main_scaled];"
-        "[1:v]scale=180:-1[img1_scaled];"
-        "[2:v]scale=180:-1[img2_scaled];"
+        "[1:v]scale=185:-1[img1_scaled];"
+        "[2:v]scale=185:-1[img2_scaled];"
         "[main_scaled][img1_scaled]overlay=(main_w-overlay_w)/2:main_h-overlay_h-10:enable='lt(mod(t,10),5)'[tmp];"
         "[tmp][img2_scaled]overlay=(main_w-overlay_w)/2:main_h-overlay_h-10:enable='gte(mod(t,10),5)'[v]"
     )
