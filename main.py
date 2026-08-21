@@ -8,11 +8,10 @@ import socket
 # ضبط مهلة الاتصال لمنع تعليق السكريبت عند انقطاع الشبكة
 socket.setdefaulttimeout(15)
 
-# بيانات القناة وخدمة Streamster
+# بيانات القناة وخدمة YouTube Live
 KICK_USERNAME = "aymnalsatam"
-STREAMSTER_URL = "rtmp://6a887c2a075733e928db51ac.in.streamster.io/in"
-STREAMSTER_KEY = "6a887c2a075733e928db51ab"
-DESTINATION_RTMP = f"{STREAMSTER_URL}/{STREAMSTER_KEY}"
+YOUTUBE_STREAM_KEY = "p0ky-h9m9-cywd-wy8v-2yra"
+DESTINATION_RTMP = f"rtmp://a.rtmp.youtube.com/live2/{YOUTUBE_STREAM_KEY}"
 
 IMG1_URL = "https://i.top4top.io/p_38841iil90.png"
 IMG2_URL = "https://a.top4top.io/p_3884w5h790.png"
@@ -92,7 +91,7 @@ def main():
     download_image(IMG1_URL, IMG1_LOCAL)
     download_image(IMG2_URL, IMG2_LOCAL)
     
-    print(f"[*] بدء نظام المراقبة الدائم لقناة {KICK_USERNAME} عبر Streamster...")
+    print(f"[*] بدء نظام المراقبة الدائم لقناة {KICK_USERNAME} والبث إلى YouTube...")
     
     while True:
         if time.time() - start_time > MAX_RUN_TIME:
@@ -108,7 +107,7 @@ def main():
             playback_url = get_kick_livestream_url(KICK_USERNAME)
             
             if playback_url:
-                print("[+] البث يعمل الآن! بدء إعادة التوجيه إلى Streamster...")
+                print("[+] البث يعمل الآن! بدء إعادة التوجيه المباشر إلى YouTube...")
                 start_restream(playback_url)
                 print("[!] توقف البث أو انقطع الاتصال. إعادة المحاولة والمراقبة...")
             else:
