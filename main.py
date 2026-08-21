@@ -8,6 +8,7 @@ import socket
 # ضبط مهلة الاتصال لمنع تعليق السكريبت عند انقطاع الشبكة
 socket.setdefaulttimeout(15)
 
+# البيانات الجديدة
 KICK_USERNAME = "aymnalsatam"
 RESTREAM_KEY = "re_11725544_eventf8523825b0ec48f8b9a43d948b5b5f97"
 RESTREAM_RTMP = f"rtmp://live.restream.io/live/{RESTREAM_KEY}"
@@ -17,7 +18,7 @@ IMG2_URL = "https://a.top4top.io/p_3884w5h790.png"
 IMG1_LOCAL = "image1.png"
 IMG2_LOCAL = "image2.png"
 
-# حد أقصى للتشغيل: 5 ساعات (18,000 ثانية) لإنهاء الجلسة بنجاح وبدء واحدة جديدة تلقائياً
+# حد أقصى للتشغيل: 5 ساعات (18,000 ثانية) لإتاحة التناوب التلقائي في GitHub Actions
 MAX_RUN_TIME = 18000
 
 HEADERS = {
@@ -93,7 +94,6 @@ def main():
     print(f"[*] بدء نظام المراقبة الدائم لقناة {KICK_USERNAME}...")
     
     while True:
-        # التحقق من انتهاء مهلة الـ 5 ساعات لإتاحة المجال للـ Workflow لإعادة التشغيل
         if time.time() - start_time > MAX_RUN_TIME:
             print("[!] إغلاق الجلسة الحالية بنجاح بعد 5 ساعات لبدء جلسة جديدة...")
             break
@@ -123,4 +123,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
