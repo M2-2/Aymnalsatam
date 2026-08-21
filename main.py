@@ -8,17 +8,18 @@ import socket
 # ضبط مهلة الاتصال لمنع تعليق السكريبت عند انقطاع الشبكة
 socket.setdefaulttimeout(15)
 
-# البيانات الجديدة
-KICK_USERNAME = "AYMNALSATAM"
-RESTREAM_KEY = "re_11725544_eventf8523825b0ec48f8b9a43d948b5b5f97"
-RESTREAM_RTMP = f"rtmp://live.restream.io/live/{RESTREAM_KEY}"
+# بيانات القناة وخدمة Streamster
+KICK_USERNAME = "aymnalsatam"
+STREAMSTER_URL = "rtmp://6a887c2a075733e928db51ac.in.streamster.io/in"
+STREAMSTER_KEY = "6a887c2a075733e928db51ab"
+DESTINATION_RTMP = f"{STREAMSTER_URL}/{STREAMSTER_KEY}"
 
 IMG1_URL = "https://i.top4top.io/p_38841iil90.png"
 IMG2_URL = "https://a.top4top.io/p_3884w5h790.png"
 IMG1_LOCAL = "image1.png"
 IMG2_LOCAL = "image2.png"
 
-# حد أقصى للتشغيل: 5 ساعات (18,000 ثانية) لإتاحة التناوب التلقائي في GitHub Actions
+# حد أقصى للتشغيل: 5 ساعات (18,000 ثانية) للتناوب في GitHub Actions
 MAX_RUN_TIME = 18000
 
 HEADERS = {
@@ -79,7 +80,7 @@ def start_restream(stream_url):
         '-b:a', '256k',
         '-ar', '48000',
         '-f', 'flv',
-        RESTREAM_RTMP
+        DESTINATION_RTMP
     ]
     try:
         subprocess.run(ffmpeg_cmd, check=False)
@@ -91,7 +92,7 @@ def main():
     download_image(IMG1_URL, IMG1_LOCAL)
     download_image(IMG2_URL, IMG2_LOCAL)
     
-    print(f"[*] بدء نظام المراقبة الدائم لقناة {KICK_USERNAME}...")
+    print(f"[*] بدء نظام المراقبة الدائم لقناة {KICK_USERNAME} عبر Streamster...")
     
     while True:
         if time.time() - start_time > MAX_RUN_TIME:
@@ -107,7 +108,7 @@ def main():
             playback_url = get_kick_livestream_url(KICK_USERNAME)
             
             if playback_url:
-                print("[+] البث يعمل الآن! بدء إعادة التوجيه بأعلى جودة...")
+                print("[+] البث يعمل الآن! بدء إعادة التوجيه إلى Streamster...")
                 start_restream(playback_url)
                 print("[!] توقف البث أو انقطع الاتصال. إعادة المحاولة والمراقبة...")
             else:
